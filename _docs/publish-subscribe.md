@@ -399,6 +399,118 @@ void stopAll()
 
 assasas
 
+###Getting the Source
+
+sdsd
+
+###Building
+
+sdsds
+
+###Running the Application
+
+First, start the *topicSubscriber*:
+
+```
+$ ./topicSubscriber 
+Solace OpenMAMA tutorial.
+Receiving messages with OpenMAMA.
+2016-07-14 14:22:38: 
+********************************************************************************
+Note: This build of the MAMA API is not enforcing entitlement checks.
+Please see the Licensing file for details
+**********************************************************************************
+2016-07-14 14:22:38: mamaTransport_create(): No entitlement bridge specified for transport vmr. Defaulting to noop.
+Created subscription to topic "tutorial.topic"
+```
+
+Now in a separate console start the *topicPublisher* that starts publishing messages periodically, logging to the console:
+
+```
+$ ./topicPublisher 
+Solace OpenMAMA tutorial.
+Publishing messages with OpenMAMA.
+2016-07-14 14:22:48: 
+********************************************************************************
+Note: This build of the MAMA API is not enforcing entitlement checks.
+Please see the Licensing file for details
+**********************************************************************************
+2016-07-14 14:22:48: mamaTransport_create(): No entitlement bridge specified for transport vmr. Defaulting to noop.
+Message published: Thu Jul 14 14:22:51 2016
+Message published: Thu Jul 14 14:22:54 2016
+Message published: Thu Jul 14 14:22:57 2016
+Message published: Thu Jul 14 14:23:00 2016
+```
+
+We will see the *topicSubscriber* receiving messages and logging them to the connsole:
+
+```
+$ ./topicSubscriber 
+Solace OpenMAMA tutorial.
+Receiving messages with OpenMAMA.
+2016-07-14 14:22:38: 
+********************************************************************************
+Note: This build of the MAMA API is not enforcing entitlement checks.
+Please see the Licensing file for details
+**********************************************************************************
+2016-07-14 14:22:38: mamaTransport_create(): No entitlement bridge specified for transport vmr. Defaulting to noop.
+Created subscription to topic "tutorial.topic"
+Message of type INITIAL received on topic "tutorial.topic"
+This message has a field "MdMyTimestamp" with value: Thu Jul 14 14:22:51 2016
+Message of type INITIAL received on topic "tutorial.topic"
+This message has a field "MdMyTimestamp" with value: Thu Jul 14 14:22:54 2016
+Message of type INITIAL received on topic "tutorial.topic"
+This message has a field "MdMyTimestamp" with value: Thu Jul 14 14:22:57 2016
+Message of type INITIAL received on topic "tutorial.topic"
+This message has a field "MdMyTimestamp" with value: Thu Jul 14 14:23:00 2016
+```
+
+To stop the application press `Ctrl-C` and then `y` on each console. First, stop the publisher:
+
+```
+$ ./topicPublisher 
+Solace OpenMAMA tutorial.
+Publishing messages with OpenMAMA.
+2016-07-14 14:22:48: Failed to open properties file.
+
+2016-07-14 14:22:48: 
+********************************************************************************
+Note: This build of the MAMA API is not enforcing entitlement checks.
+Please see the Licensing file for details
+**********************************************************************************
+2016-07-14 14:22:48: mamaTransport_create(): No entitlement bridge specified for transport vmr. Defaulting to noop.
+Message published: Thu Jul 14 14:22:51 2016
+Message published: Thu Jul 14 14:22:54 2016
+Message published: Thu Jul 14 14:22:57 2016
+Message published: Thu Jul 14 14:23:00 2016
+^C Do you want to stop the program? [y/n]: y
+Closing Solace middleware bridge.
+```
+
+Now we can stop the subscriber:
+
+```
+$ ./topicSubscriber 
+Solace OpenMAMA tutorial.
+Receiving messages with OpenMAMA.
+2016-07-14 14:22:38: 
+********************************************************************************
+Note: This build of the MAMA API is not enforcing entitlement checks.
+Please see the Licensing file for details
+**********************************************************************************
+2016-07-14 14:22:38: mamaTransport_create(): No entitlement bridge specified for transport vmr. Defaulting to noop.
+Created subscription to topic "tutorial.topic"
+Message of type INITIAL received on topic "tutorial.topic"
+This message has a field "MdMyTimestamp" with value: Thu Jul 14 14:22:51 2016
+Message of type INITIAL received on topic "tutorial.topic"
+This message has a field "MdMyTimestamp" with value: Thu Jul 14 14:22:54 2016
+Message of type INITIAL received on topic "tutorial.topic"
+This message has a field "MdMyTimestamp" with value: Thu Jul 14 14:22:57 2016
+Message of type INITIAL received on topic "tutorial.topic"
+This message has a field "MdMyTimestamp" with value: Thu Jul 14 14:23:00 2016
+^C Do you want to stop the program? [y/n]: y
+Closing Solace middleware bridge.
+```
 
 
 
