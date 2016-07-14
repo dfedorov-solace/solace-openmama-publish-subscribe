@@ -401,8 +401,8 @@ Our application consists of two executables: *topicSubscriber* and *topicPublish
 
 If you combine the example source code shown above and split them into the two mentioned executables, it results in the source that is available for download:
 
-[topicSubscriber]()
-[topicPublisher]()
+* [topicSubscriber](https://github.com/dfedorov-solace/solace-openmama-publish-subscribe/blob/master/topicSubscriber.c)
+* [topicPublisher](https://github.com/dfedorov-solace/solace-openmama-publish-subscribe/blob/master/topicPublisher.c)
 
 ###Getting the Source
 
