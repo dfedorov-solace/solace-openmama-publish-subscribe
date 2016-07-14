@@ -397,15 +397,29 @@ void stopAll()
 
 ##Summarizing
 
-assasas
+Our application consists of two executables: *topicSubscriber* and *topicPublisher*.
+
+If you combine the example source code shown above and split them into the two mentioned executables, it results in the source that is available for download:
+
+[topicSubscriber]()
+[topicPublisher]()
 
 ###Getting the Source
 
-sdsd
+Clone the GitHub repository containing the source.
+
+```
+git clone git://github.com/dfedorov-solace/solace-openmama-publish-subscribe
+cd solace-openmama-publish-subscribe
+```
 
 ###Building
 
-sdsds
+To build on **Linux**, assuming OpenMAMA installed into `/opt/openmama`:
+```
+$ gcc -o topicSubscriber topicSubscriber.c -I/opt/openmama/include -L/opt/openmama/lib -lmama
+$ gcc -o topicPublisher topicPublisher.c -I/opt/openmama/include -L/opt/openmama/lib -lmama
+```
 
 ###Running the Application
 
@@ -424,7 +438,7 @@ Please see the Licensing file for details
 Created subscription to topic "tutorial.topic"
 ```
 
-Now in a separate console start the *topicPublisher* that starts publishing messages periodically, logging to the console:
+Now in a separate console start the *topicPublisher* that begins publishing messages periodically:
 
 ```
 $ ./topicPublisher 
@@ -442,7 +456,7 @@ Message published: Thu Jul 14 14:22:57 2016
 Message published: Thu Jul 14 14:23:00 2016
 ```
 
-We will see the *topicSubscriber* receiving messages and logging them to the connsole:
+You will see the *topicSubscriber* receiving messages and logging them to the connsole:
 
 ```
 $ ./topicSubscriber 
