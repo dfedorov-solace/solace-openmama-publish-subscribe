@@ -6,7 +6,6 @@
 * [Getting Access to Solace Message Router](#getting-access-to-solace-message-router)
 * [Solace Message Router Properties](#solace-message-router-properties)
 * [Trying It Yourself](#trying-it-yourself)
-* [Initializing](#initializing)
 * [Receiving Message](#receiving-message)
 * [Sending Message](#sending-message)
 * [Summarizing](#summarizing)
@@ -114,13 +113,18 @@ $ topicPublisher.exe
 
 ##Receiving Message
 
-Before everything else, as you already know the [Solace OpenMAMA "Hello World" tutorial](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md), we need to [initialize](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#initialize) the **Solace middleware bridge** and [create a transport](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#create-transport).
+Before everything else, as you already know from the [Solace OpenMAMA "Hello World" tutorial](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md), we need to [initialize](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#initialize) the **Solace middleware bridge** and [create a transport](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#create-transport).
+
+To learn more about how to initialize and configure **Solace middleware bridge** as an *OpenMAMA transport* see [Solace OpenMAMA User Guide](https://sftp.solacesystems.com/Portal_Docs/index.html#page/OpenMAMA_User_Guide/Configuring_Solace_OpenMAMA_Bridges.html)
 
 Now we can implement receiving a message.
 
 First, let’s express interest in messages by subscribing to a topic. Then you can look at publishing a matching message and see it received.
 
 In OpenMAMA subscribing to a topic means *creating a subscription*. When creating a subscription, we need to refer to a *transport*, a *receiver* and to an *event queue*.
+
+TODO: RECEVIER
+TODO: EVENT QUEUE
 
 You already know what the *transport* is.
 
