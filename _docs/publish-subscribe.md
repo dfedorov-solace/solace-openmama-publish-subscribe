@@ -112,77 +112,9 @@ $ topicPublisher.exe
 
 ---
 
-## Initializing
-
-The **Solace middleware bridge** is referred by its name, so is the **properties file** in the current (`"."`) directory:
-
-```c
-void initializeBridge(const char * bridgeName)
-{
-    global.bridge = NULL;
-    mama_status status;
-    if (((status = mama_loadBridge(&global.bridge, bridgeName)) == MAMA_STATUS_OK) &&
-        ((status = mama_openWithProperties(".","mama.properties")) == MAMA_STATUS_OK))
-    {
-        // normal exit;
-        return;
-    }
-    // error exit
-    mama_close();
-    printf("MAMA initialization error: %s\n", mamaStatus_stringForStatus(status));
-    exit(status);
-}
-```
-
-Next, we need to create the middleware bridge transport, it connects our program to the **Solace message router**:
-
-```c
-void connectTransport(const char * transportName)
-{
-    global.transport = NULL;
-    mama_status status;
-    if (((status = mamaTransport_allocate(&global.transport)) == MAMA_STATUS_OK) &&
-        ((status = mamaTransport_create(global.transport, transportName, global.bridge)) == MAMA_STATUS_OK))
-    {
-        // normal exit
-        return;
-    }
-    // error exit
-    printf("Transport %s connect error: %s\n", transportName, mamaStatus_stringForStatus(status));
-    mama_close();
-    exit(status);
-}
-```
-
-Notice how in `initializeBridge` we explicitly refer to the **properties file** in the current (`"."`) directory. This file is named **mama.properties** and it has a minimum set of properties for the **Solace message router**:
-
-```
-mama.solace.transport.vmr.session_host=192.168.1.75
-mama.solace.transport.vmr.session_username=default
-mama.solace.transport.vmr.session_vpn_name=default
-mama.solace.transport.vmr.allow_recover_gaps=false
-```
-
-Property token names `solace` and `vmr` in this file must match the middleware bridge and its transport names:
-
-```c
-initializeBridge("solace");
-connectTransport("vmr");
-```
-
-Each property in the **properties file** corresponds to one of the [Solace Message Router Properties](#solace-message-router-properties):
-
-- `mama.solace.transport.vmr.session_host` is `Host` and usually has a value of the IP address of the **Solace message router**.
-- `mama.solace.transport.vmr.session_username` is `Client Username`
-- `mama.solace.transport.vmr.session_password` is optional `Client Password`
-- `mama.solace.transport.vmr.session_vpn_name` is `Message VPN`
-- `mama.solace.transport.vmr.allow_recover_gaps` doesn't have a default value and specifies whether the Solace middleware bridge should override applications settings for recovering from sequence number gaps in subscriptions. When `allow_recover_gaps` is `true` applications are allowed to specify the gap recovery behaviour. When `allow_recover_gaps` is `false`, the gap recovery is disabled for all subscriptions, regardless of applications settings.
-
----
-
 ##Receiving Message
 
-Before everything else, as you already know the [Solace OpenMAMA "Hello World" tutorial](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md) we need to [initialize](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#initialize) the **Solace middleware bridge** and [create a transport](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#create-publisher).
+Before everything else, as you already know the [Solace OpenMAMA "Hello World" tutorial](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md), we need to [initialize](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#initialize) the **Solace middleware bridge** and [create a transport](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#create-transport).
 
 Now we can implement receiving a message.
 
@@ -339,9 +271,9 @@ void stopAll()
 
 ##Sending Message
 
-As usual, before everything else, we need to [initialize](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#initialize) the **Solace middleware bridge** and [create a transport](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#create-publisher).
+As usual, before everything else, we need to [initialize](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#initialize) the **Solace middleware bridge** and [create a transport](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#create-transport).
 
-Now we can implement sending a message, and as you already know from the [Solace OpenMAMA "Hello World" tutorial](https://github.com/dfedorov-solace/solace-openmama-hello-world),  to publish a message we need to create a *publisher*.
+Now we can implement sending a message, and as you already know from the [Solace OpenMAMA "Hello World" tutorial](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#create-publisher), to publish a message we need to create a *publisher*.
 
 A *publisher* is created for a specific topic and refers to already created *transport*:
 
