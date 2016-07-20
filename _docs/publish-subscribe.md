@@ -115,7 +115,7 @@ $ topicPublisher.exe
 
 Before everything else, as you already know from the [Solace OpenMAMA "Hello World" tutorial](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md), we need to [initialize](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#initialize) the **Solace middleware bridge** and [create a transport](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#create-transport).
 
-To learn more about how to initialize and configure **Solace middleware bridge** as an *OpenMAMA transport* see [Solace OpenMAMA User Guide](https://sftp.solacesystems.com/Portal_Docs/index.html#page/OpenMAMA_User_Guide/Configuring_Solace_OpenMAMA_Bridges.html)
+To learn more about how to initialize and configure **Solace middleware bridge as an OpenMAMA transport** see [Solace OpenMAMA User Guide](https://sftp.solacesystems.com/Portal_Docs/index.html#page/OpenMAMA_User_Guide/Configuring_Solace_OpenMAMA_Bridges.html)
 
 Now we can implement receiving a message.
 
@@ -123,10 +123,9 @@ First, let’s express interest in messages by subscribing to a topic. Then you 
 
 In OpenMAMA subscribing to a topic means *creating a subscription*. When creating a subscription, we need to refer to a *transport*, a *receiver* and to an *event queue*.
 
-TODO: RECEVIER
-TODO: EVENT QUEUE
+You already know what the **transport** is.
 
-You already know what the *transport* is.
+For details of the **event queue** see [OpenMAMA Developer's Guide for C](http://www.openmama.org/sites/default/files/OpenMAMA%20Developer%27s%20Guide%20C.pdf)
 
 When multi-threading is not required it is recommended to use the *default internal event queue* as an *event queue*:
 
@@ -135,7 +134,7 @@ mamaQueue defaultQueue;
 mama_getDefaultEventQueue(global.bridge, &defaultQueue))
 ```
 
-The *receiver* is a data structure with function pointers that are invoked by OpenMAMA when certain events happen.
+The **receiver** is a data structure with function pointers that are invoked by OpenMAMA when certain events happen.
 
 It has a type of `mamaMsgCallbacks` and it is expected to have, as a minimum, the following function pointers:
 
