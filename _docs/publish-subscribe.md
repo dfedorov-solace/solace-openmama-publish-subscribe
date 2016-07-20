@@ -18,7 +18,7 @@
 This tutorial assumes the following:
 
 *   You are familiar with OpenMAMA [core concepts](https://sftp.solacesystems.com/Portal_Docs/OpenMAMA_User_Guide/01_Introduction.html).
-    *   If not, see [this OpenMAMA guide](http://www.openmama.org/content/quick-start-guide) and [Solace OpenMAMA Hello World](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md).
+    *   If not, see [this OpenMAMA guide](http://www.openmama.org/content/quick-start-guide) and [Solace OpenMAMA Hello World tutorial](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md).
 *   You are familiar with Solace [core concepts](http://dev.solacesystems.com/docs/core-concepts/).
 *   You have access to a properly installed OpenMAMA [release](https://github.com/OpenMAMA/OpenMAMA/releases).
     *   Solace middleware bridge with its dependencies is also installed
