@@ -2,6 +2,8 @@
 
 * [Assumptions](#assumptions)
 * [Goals](#goals)
+* [Installation](#installation)
+* [Getting Access to Solace Message Router](#getting-access-to-solace-message-router)
 * [Solace Message Router Properties](#solace-message-router-properties)
 * [Trying It Yourself](#trying-it-yourself)
 * [Initializing](#initializing)
@@ -16,27 +18,43 @@
 This tutorial assumes the following:
 
 *   You are familiar with OpenMAMA [core concepts](https://sftp.solacesystems.com/Portal_Docs/OpenMAMA_User_Guide/01_Introduction.html).
+    *   If not, see [this OpenMAMA guide](http://www.openmama.org/content/quick-start-guide) and [Solace OpenMAMA Hello World](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md).
 *   You are familiar with Solace [core concepts](http://dev.solacesystems.com/docs/core-concepts/).
 *   You have access to a properly installed OpenMAMA [release](https://github.com/OpenMAMA/OpenMAMA/releases).
     *   Solace middleware bridge with its dependencies is also installed
 *   You have access to a running Solace message router with the following configuration:
-    *   Enabled message VPN
-    *   Enabled client username
-*   You have completed the [Solace OpenMAMA "Hello World" tutorial](https://github.com/dfedorov-solace/solace-openmama-hello-world).
-
-One simple way to get access to a Solace message router is to start a Solace VMR load [as outlined here](http://dev.solacesystems.com/docs/get-started/setting-up-solace-vmr_vmware/). By default the Solace VMR will run with the “default” message VPN configured and ready for messaging. Going forward, this tutorial assumes that you are using the Solace VMR. If you are using a different Solace message router configuration, adapt the instructions to match your configuration.
-
-Simplified installation instructions for OpenMAMA with Solace middleware bridge [are available](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/install.md).
+    *   Enabled Message VPN
+    *   Enabled Client Username
 
 ---
 
 ## Goals
 
-The goal of this tutorial is to demonstrate the most basic messaging interaction using OpenMAMA with the Solace middleware bridge.
+The goal of this tutorial is to demonstrate basic messaging interactions using OpenMAMA with the **Solace middleware bridge**. This tutorial's samples are similar to the OpenMAMA's [mamapublisherc.c](https://github.com/OpenMAMA/OpenMAMA/blob/master/mama/c_cpp/src/examples/c/mamapublisherc.c) and [mamasubscriberc.c](https://github.com/OpenMAMA/OpenMAMA/blob/master/mama/c_cpp/src/examples/c/mamasubscriberc.c), but with a distinct focus on configuring OpenMAMA with **Solace message routers**. See the [Resources](#resources) section below for some further links to other OpenMAMA tutorials and examples.
 
-This tutorial will show you:
-* How to build and send a message on a topic
-* How to subscribe to a topic and receive a message
+This tutorial will show you how to publish a message with one string field to a specific topic on a Solace message router using OpenMAMA C API.
+
+This tutorial will show you how to use OpenMAMA C API:
+* to build and send a message on a topic
+* to subscribe to a topic and receive a message
+
+## Installation
+
+Installation instructions for OpenMAMA can be found on [OpenMAMA Wiki](http://www.openmama.org/content/quick-start-guide#main).
+
+Simplified installation instructions for OpenMAMA with Solace middleware bridge [are available](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/install.md).
+
+For building OpenMAMA from source see [OpenMAMA Wiki](https://github.com/OpenMAMA/OpenMAMA/wiki/Build-Instructions).
+
+---
+
+## Getting Access to Solace Message Router
+
+There are two ways you can get hold of the **Solace message router**:
+- If your company has Solace message routers deployed, contact your middleware team to obtain the host name or IP address of a Solace message router to test against, a username and password to access it, and a VPN in which you can produce and consume messages.
+- If you do not have access to a Solace message router, you will need to use the [Solace Virtual Router](http://www.solacesystems.com/products/solace-virtual-message-router). Go through the “[Set up a VMR](http://dev.solacesystems.com/get-started/vmr-setup-tutorials/setting-up-solace-vmr/)” tutorial to download and install it. By default the Solace VMR will run with the `“default”` message VPN configured and ready for messaging.
+
+Going forward, this tutorial assumes that you are using the Solace VMR. If you are using a different Solace message router configuration, adapt the instructions to match your configuration.
 
 ---
 
@@ -50,6 +68,8 @@ Host | String of the form `DNS name` or `IP:Port` | This is the address clients 
 Message VPN | String | The Solace message router Message VPN that this client should connect to. The simplest option is to use the `default` message-vpn which is present on all Solace message routers and fully enabled for message traffic on Solace VMRs.
 Client Username | String | The client username. For the Solace VMR default message VPN, authentication is disabled by default, so this can be any value.
 Client Password | String | The optional client password. For the Solace VMR default message VPN, authentication is disabled by default, so this can be any value or omitted.
+
+Example of specifying these properties [see here](https://github.com/dfedorov-solace/solace-openmama-publish-subscribe/blob/master/mama.properties) and detailed explanation of them is below.
 
 ---
 
@@ -149,6 +169,14 @@ Property token names `solace` and `vmr` in this file must match the middleware b
 initializeBridge("solace");
 connectTransport("vmr");
 ```
+
+Each property in the **properties file** corresponds to one of the [Solace Message Router Properties](#solace-message-router-properties):
+
+- `mama.solace.transport.vmr.session_host` is `Host` and usually has a value of the IP address of the **Solace message router**.
+- `mama.solace.transport.vmr.session_username` is `Client Username`
+- `mama.solace.transport.vmr.session_password` is optional `Client Password`
+- `mama.solace.transport.vmr.session_vpn_name` is `Message VPN`
+- `mama.solace.transport.vmr.allow_recover_gaps` doesn't have a default value and specifies whether the Solace middleware bridge should override applications settings for recovering from sequence number gaps in subscriptions. When `allow_recover_gaps` is `true` applications are allowed to specify the gap recovery behaviour. When `allow_recover_gaps` is `false`, the gap recovery is disabled for all subscriptions, regardless of applications settings.
 
 ---
 
@@ -526,9 +554,34 @@ This message has a field "MdMyTimestamp" with value: Thu Jul 14 14:23:00 2016
 Closing Solace middleware bridge.
 ```
 
-
-
-======================================
 Congratulations! You have now successfully subscribed to a topic and exchanged messages using this topic on using OpenMAMA with the Solace middleware bridge.
 
 If you have any issues with this program, check the [Solace community](http://dev.solacesystems.com/community/) for answers to common issues.
+
+---
+
+## Resources
+
+For more information about OpenMAMA:
+
+- The OpenMAMA website at: [http://www.openmama.org/](http://www.openmama.org/).
+- The OpenMAMA code repository on GitHub [https://github.com/OpenMAMA/OpenMAMA](https://github.com/OpenMAMA/OpenMAMA).
+- Chat with OpenMAMA developers and users at [Gitter OpenMAMA room](https://gitter.im/OpenMAMA/OpenMAMA).
+
+For more information about Solace technology:
+
+- The Solace Developer Portal website at: [http://dev.solacesystems.com](http://dev.solacesystems.com/)
+- Get a better understanding of [Solace technology](http://dev.solacesystems.com/tech/).
+- Check out the [Solace blog](http://dev.solacesystems.com/blog/) for other interesting discussions around Solace technology.
+- Ask the [Solace community](http://dev.solacesystems.com/community/).
+
+Other tutorials and samples:
+
+*   [OpenMAMA Quick Start Guide](http://www.openmama.org/content/quick-start-guide) 
+*   [OpenMAMA Wiki Quick Start Guide](https://github.com/OpenMAMA/OpenMAMA/wiki/Quick-Start-Guide)
+*   [OpenMAMA Example Walk Through](http://www.openmama.org/example-walk-through).
+*   [OpenMAMA Code Examples](https://github.com/OpenMAMA/OpenMAMA/tree/master/mama/c_cpp/src/examples) 
+*   [OpenMAMA Wiki](https://github.com/OpenMAMA/OpenMAMA/wiki)
+*   [OpenMAMA Documentation and Developers Guides](http://www.openmama.org/documentation)
+*   [Solace OpenMAMA Hello World](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md)
+*   [Solace's Solution for OpenMAMA](http://dev.solacesystems.com/tech/openmama/)
