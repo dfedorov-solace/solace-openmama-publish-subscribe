@@ -18,7 +18,7 @@
 This tutorial assumes the following:
 
 *   You are familiar with OpenMAMA [core concepts](https://sftp.solacesystems.com/Portal_Docs/OpenMAMA_User_Guide/01_Introduction.html).
-    *   If not, see [this OpenMAMA guide](http://www.openmama.org/content/quick-start-guide) and [Solace OpenMAMA Hello World tutorial](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md).
+    *   If not, see [this OpenMAMA guide](http://www.openmama.org/content/quick-start-guide) and [Solace OpenMAMA "Hello World" tutorial](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md).
 *   You are familiar with Solace [core concepts](http://dev.solacesystems.com/docs/core-concepts/).
 *   You have access to a properly installed OpenMAMA [release](https://github.com/OpenMAMA/OpenMAMA/releases).
     *   Solace middleware bridge with its dependencies is also installed
@@ -114,7 +114,7 @@ $ topicPublisher.exe
 
 ## Initializing
 
-As you already know, any OpenMAMA program begins with initialization that consists of loading a middleware bridge and opening it. The bridge is referred by its name:
+The **Solace middleware bridge** is referred by its name, so is the **properties file** in the current (`"."`) directory:
 
 ```c
 void initializeBridge(const char * bridgeName)
@@ -181,6 +181,10 @@ Each property in the **properties file** corresponds to one of the [Solace Messa
 ---
 
 ##Receiving Message
+
+Before everything else, as you already know the [Solace OpenMAMA "Hello World" tutorial](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md) we need to [initialize](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#initialize) the **Solace middleware bridge** and [create a transport](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#create-publisher).
+
+Now we can implement receiving a message.
 
 First, let’s express interest in messages by subscribing to a topic. Then you can look at publishing a matching message and see it received.
 
@@ -335,7 +339,9 @@ void stopAll()
 
 ##Sending Message
 
-As you already know from the [Solace OpenMAMA "Hello World" tutorial](https://github.com/dfedorov-solace/solace-openmama-hello-world),  to publish a message we need to create a *publisher*.
+As usual, before everything else, we need to [initialize](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#initialize) the **Solace middleware bridge** and [create a transport](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#create-publisher).
+
+Now we can implement sending a message, and as you already know from the [Solace OpenMAMA "Hello World" tutorial](https://github.com/dfedorov-solace/solace-openmama-hello-world),  to publish a message we need to create a *publisher*.
 
 A *publisher* is created for a specific topic and refers to already created *transport*:
 
