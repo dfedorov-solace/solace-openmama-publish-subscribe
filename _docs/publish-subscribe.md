@@ -68,7 +68,7 @@ Message VPN | String | The Solace message router Message VPN that this client sh
 Client Username | String | The client username. For the Solace VMR default message VPN, authentication is disabled by default, so this can be any value.
 Client Password | String | The optional client password. For the Solace VMR default message VPN, authentication is disabled by default, so this can be any value or omitted.
 
-Example of specifying these properties [see here](https://github.com/dfedorov-solace/solace-openmama-publish-subscribe/blob/master/mama.properties) and detailed explanation of them is below.
+Example of specifying these properties [see here](https://github.com/dfedorov-solace/solace-openmama-publish-subscribe/blob/master/mama.properties) and detailed explanation of them is in the [Solace OpenMAMA "Hello World" tutorial](https://github.com/dfedorov-solace/solace-openmama-hello-world/blob/master/_docs/hello-world.md#properties-file).
 
 ---
 
