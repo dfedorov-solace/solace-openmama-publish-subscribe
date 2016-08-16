@@ -43,7 +43,7 @@ void stopHandler(int value)
 }
 
 
-// used in main routune
+// used in main routine
 void initializeBridge(const char *);
 void connectTransport(const char *);
 void subscribeToTopic(const char *);
